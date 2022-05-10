@@ -1,8 +1,8 @@
 import { SHIP_TYPES_LENGTHS} from '../helpers/helpers';
 
 //Factory function that creates an object of every ship.
-export const Ship = (type) => {
-    const length=SHIP_TYPES_LENGTHS[type];
+export const Ship = (l) => {
+    let length=l
     let direction="horizontal";
 
     //Ships direction can be changed.
