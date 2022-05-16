@@ -1,4 +1,4 @@
-export const SHIP_TYPES_LENGTHS={
+export const shipDetailsHelper={
     carrier:5,
     battleship:4,
     destroyer:3,

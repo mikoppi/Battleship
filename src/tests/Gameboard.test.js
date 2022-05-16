@@ -1,13 +1,12 @@
 import {Gameboard} from "../factories/Gameboard.js"
 import { Ship } from "../factories/Ship";
 
-test("creates a gameboard of 10x10", () => {
-    let g = Gameboard();
-    expect(g.board.length && g.board[0].length).toBe(10);
-  });
+const testGameboard=Gameboard();
 
-  test("returns false if there's already a ship", () => {
-    let g = Gameboard();
-    g.placeShip(0, 0, 2);
-    expect(g.placeShip(0, 1, 3)).toBe(false);
-  });
+test('gameboard setup', () => {
+  expect(testGameboard.board[7][5]).toBe(null);
+});
+
+test('can place horiz edge', () => {
+  expect(testGameboard.validHorizontal(5, 5, 6)).toBe(true);
+}); 

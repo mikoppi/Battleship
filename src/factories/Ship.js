@@ -1,4 +1,4 @@
-import { SHIP_TYPES_LENGTHS} from '../helpers/helpers';
+
 
 //Factory function that creates an object of every ship.
 export const Ship = (l) => {
