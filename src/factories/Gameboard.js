@@ -6,6 +6,7 @@ import { shipDetailsHelper} from '../helpers/helpers';
 export const Gameboard=() => {
     //Creates a 10x10 board. [row=y][column=x]
     let board=[];
+    let ships=[];
     const initBoard=(() => {
         for (let i=0;i<10;i++) {
             board[i]=[];
@@ -43,27 +44,28 @@ export const Gameboard=() => {
     }   
     //Places ships on the board to specific coordinates. Need to check if out of bounds!
     const placeShip=(row,column,length,direction) => {
-        const newShip = Ship(length)
         
-        if (direction==="horizontal") {
+        const newShip = Ship(length)
+        ships.push(newShip);
+        
+        if (direction==="horizontal" && validHorizontal(row,column,length)) {
             for (let i = column, j = 0; i < column + length; i++, j++) {
                 board[row][i].ship = newShip;
                 board[row][i].part = j;
-
             }
-        } else if (direction==="vertical") {
+        } else if (direction==="vertical" && validVertical(row,column,length)) {
             for (let i = row, j = 0; i < row + length; i++, j++)  {
                 board[i][column].ship = newShip;
                 board[i][column].part = j;
             }
         } else {
-            throw new Error("orientation must be 'horizontal' or 'vertical'");
+            throw new Error("orientation must be 'horizontal' or 'vertical' and not out of bounds");
         }
     }
 
     const receiveAttack = (row, column) => {
         if (board[row][column].ship === null) {
-            board[row][column]==='miss';
+            board[row][column]='miss';
             return false
         }
         else {
@@ -71,12 +73,23 @@ export const Gameboard=() => {
             return true;
     }}
 
+    const allShipsSunk=() => {
+        for (let i=0; i<ships.length; i++) {
+            let shipHitArray=ships[i].getHits();
+            for (let j = 0; j < shipHitArray.length; j++) {
+                if (!shipHitArray[j]) return false;
+            }   
+        };
+        return true
+    }
+
     return {
         board,
         initBoard,
         validHorizontal,
         validVertical,
         placeShip,
+        allShipsSunk,
         receiveAttack
     }
 }
