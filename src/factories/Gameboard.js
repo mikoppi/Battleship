@@ -59,7 +59,7 @@ export const Gameboard=() => {
                 board[i][column].part = j;
             }
         } else {
-            throw new Error("orientation must be 'horizontal' or 'vertical' and not out of bounds");
+            throw new Error("Ship can not be placed");
         }
     }
 
