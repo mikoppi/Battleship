@@ -27,6 +27,18 @@ body {
     border: 3px solid #333;
 }
 
+.grid .cell.miss {
+    background-color: lightgreen;
+}
+
+#grid1 .cell.selected {
+    background-color: #555;
+}
+
+#grid1 .cell.selected.hit, #grid2 .cell.selected.hit {
+    background-color: red;
+}
+
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -45,4 +57,8 @@ body {
 
 .overlay .cell.hovered {
     background-color: lightgreen;
+}
+
+.overlay .cell.selected {
+    background-color: #555;
 }
