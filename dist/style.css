@@ -39,6 +39,10 @@ body {
     background-color: red;
 }
 
+.grid .cell.miss {
+    background-color: lightgreen;
+}
+
 .grid-container {
     display: flex;
     flex-direction: column;

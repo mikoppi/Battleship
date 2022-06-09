@@ -48,12 +48,12 @@ export const Gameboard=() => {
         const newShip = Ship(length)
         ships.push(newShip);
         
-        if (direction==="horizontal" && validHorizontal(row,column,length)) {
+        if (!direction&& validHorizontal(row,column,length)) {
             for (let i = column, j = 0; i < column + length; i++, j++) {
                 board[row][i].ship = newShip;
                 board[row][i].part = j;
             }
-        } else if (direction==="vertical" && validVertical(row,column,length)) {
+        } else if (direction&& validVertical(row,column,length)) {
             for (let i = row, j = 0; i < row + length; i++, j++)  {
                 board[i][column].ship = newShip;
                 board[i][column].part = j;

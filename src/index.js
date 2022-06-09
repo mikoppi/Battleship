@@ -1,4 +1,10 @@
-console.log('jee')
+
+import { Player } from "./factories/Player"
+import { Gameboard } from "./factories/Gameboard"
+
+const playerBoard = Gameboard();
+const computerBoard = Gameboard();
+
 let currentShipLength=5;
 let playerRotate=false;
 let compRotate=parseInt(Math.random() * 2) === 0 ? true : false;
@@ -142,21 +148,24 @@ const placeShip = (row, col, grid, rotate) => {
   }
 };
 
-const getRandomRow = () => parseInt(Math.random() * 10);
-const getRandomCol = () => parseInt(Math.random() * 10);
+//const getRandomRow = () => parseInt(Math.random() * 10);
+//const getRandomCol = () => parseInt(Math.random() * 10);
 
-const placeCompShip = () => {
-  for (let i = 5; i > 1; i--) {
-    let row=getRandomRow;
-    let col=getRandomCol;
-    while (!checkPosition(row, col, grid2, compRotate )) {
-      row=getRandomRow;
-      col=getRandomCol;
+function placeCompShip() {
+  for (let i = 5; i >= 1; i--) {
+    let row = parseInt(Math.random() * 10);
+    let col = parseInt(Math.random() * 10);
+    let randomRotate = parseInt(Math.random() * 2) === 0 ? true : false;
+    while (!checkPosition(row, col, grid2, randomRotate)) {
+      row = parseInt(Math.random() * 10);
+      col = parseInt(Math.random() * 10);
+      randomRotate = parseInt(Math.random() * 2) === 0 ? true : false;
     }
-  }
-  selectPosition(row, col, grid2, compRotate,i)
-};
 
+    computerBoard.placeShip(row, col, i, randomRotate)
+    selectPosition( row, col, grid2, randomRotate, i);
+  }
+}
 
 
 
@@ -188,7 +197,21 @@ overlayGrid.querySelectorAll('.cell').forEach((cell) => {
     placeShip(row,column, overlayGrid)
   })
 
-  placeCompShip();
-    
 });
 
+placeCompShip();
+
+const humanPlayer = Player(computerBoard)
+
+grid2.addEventListener('click', (e) => {
+  const row = parseInt(e.target.dataset.row);
+  const col = parseInt(e.target.dataset.col);
+  const cell = getCell(row, col, grid2);
+
+  if (cell.classList.contains('hit') || cell.classList.contains('miss')) return;
+
+  if (humanPlayer.attack(row, col)) {
+    cell.classList.add('hit');
+  } else {
+    cell.classList.add('miss');
+  }})
