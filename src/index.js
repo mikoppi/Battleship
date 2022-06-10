@@ -11,6 +11,9 @@ let compRotate=parseInt(Math.random() * 2) === 0 ? true : false;
 const grid1 = document.getElementById('grid1');
 const grid2 = document.getElementById('grid2');
 const overlayGrid = document.getElementById('grid-overlay');
+const rotateBtn = document.getElementById('rotate-btn');
+const alertElement = document.getElementById('alert');
+const alertResult = document.getElementById('alert-result');
 
 const generateCells = (gridElement) => {
     for (let i = 0; i < 10; i++) {
@@ -137,14 +140,16 @@ const placeShip = (row, col, grid, rotate) => {
   let startCol = parseInt(col);
 
   if (checkPosition(startRow, startCol, grid, rotate)) {
-    //playerBoard.placeShip(startRow, startCol, currentShipLength, rotate);
+  
 
     selectPosition(startRow, startCol, grid, playerRotate, currentShipLength);
     selectPosition(startRow, startCol, grid1, playerRotate, currentShipLength);
-    //selectPosition(startRow, startCol, grid2, compRotate);
+    playerBoard.placeShip(startRow, startCol, currentShipLength, rotate)
+    
     
 
     currentShipLength--;
+    if (currentShipLength===0) closeOverlay();
   }
 };
 
@@ -164,11 +169,19 @@ function placeCompShip() {
 
     computerBoard.placeShip(row, col, i, randomRotate)
     selectPosition( row, col, grid2, randomRotate, i);
+  
   }
 }
 
 
+function closeOverlay() {
+  overlay.classList.add('hidden');
+}
 
+function openResults(result) {
+  alertElement.classList.remove('hidden');
+  alertResult.textContent = 'You ' + result.toLowerCase() + '!';
+}
 
 
 
@@ -202,6 +215,7 @@ overlayGrid.querySelectorAll('.cell').forEach((cell) => {
 placeCompShip();
 
 const humanPlayer = Player(computerBoard)
+const computerPlayer= Player(playerBoard)
 
 grid2.addEventListener('click', (e) => {
   const row = parseInt(e.target.dataset.row);
@@ -214,4 +228,22 @@ grid2.addEventListener('click', (e) => {
     cell.classList.add('hit');
   } else {
     cell.classList.add('miss');
-  }})
+  }
+
+  if(humanPlayer.checkWin) {
+    openResults('WIN!')
+  }
+
+  const computerAttack = computerPlayer.randomAttack();
+  if (computerAttack.check) {
+    getCell(computerAttack.r, computerAttack.c, grid1).classList.add('hit');
+  } else {
+    getCell(computerAttack.r, computerAttack.c, grid1).classList.add(
+      'miss'
+    );
+  }
+})
+
+rotateBtn.addEventListener('click', () => {
+  playerRotate === false ? (playerRotate = true) : (playerRotate = false);
+});
