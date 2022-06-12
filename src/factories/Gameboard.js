@@ -65,7 +65,7 @@ export const Gameboard=() => {
 
     const receiveAttack = (row, column) => {
         if (board[row][column].ship === null) {
-            board[row][column]='miss';
+            //board[row][column]='miss';
             return false
         }
         else {
@@ -79,9 +79,9 @@ export const Gameboard=() => {
             for (let j = 0; j < shipHitArray.length; j++) {
                 if (!shipHitArray[j]) return false;
             }   
-        };
+        }
         return true
-    }
+    };
 
     return {
         board,

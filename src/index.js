@@ -14,6 +14,8 @@ const overlayGrid = document.getElementById('grid-overlay');
 const rotateBtn = document.getElementById('rotate-btn');
 const alertElement = document.getElementById('alert');
 const alertResult = document.getElementById('alert-result');
+const resultText = document.getElementById('result-text');
+const playAgainBtn = document.getElementById('alert-button');
 
 const generateCells = (gridElement) => {
     for (let i = 0; i < 10; i++) {
@@ -230,8 +232,8 @@ grid2.addEventListener('click', (e) => {
     cell.classList.add('miss');
   }
 
-  if(humanPlayer.checkWin) {
-    openResults('WIN!')
+  if(humanPlayer.checkWin()) {
+    openResults('win!')
   }
 
   const computerAttack = computerPlayer.randomAttack();
@@ -242,8 +244,17 @@ grid2.addEventListener('click', (e) => {
       'miss'
     );
   }
+
+  if(computerPlayer.checkWin()) {
+    openResults('lose!')
+  }
 })
 
 rotateBtn.addEventListener('click', () => {
   playerRotate === false ? (playerRotate = true) : (playerRotate = false);
+});
+
+playAgainBtn.addEventListener('click', () => {
+  location.reload();
+  alertElement.classList.add('hidden');
 });
