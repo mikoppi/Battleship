@@ -233,7 +233,7 @@ grid2.addEventListener('click', (e) => {
   }
 
   if(humanPlayer.checkWin()) {
-    openResults('win!')
+    openResults('won!')
   }
 
   const computerAttack = computerPlayer.randomAttack();
@@ -246,7 +246,7 @@ grid2.addEventListener('click', (e) => {
   }
 
   if(computerPlayer.checkWin()) {
-    openResults('lose!')
+    openResults('lost!')
   }
 })
 
