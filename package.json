@@ -1,12 +1,13 @@
-{ "homepage": "https://mikoppi.github.io/Battleship",
+{
+  "homepage": "https://mikoppi.github.io/Battleship",
   "name": "battleship",
   "version": "1.0.0",
   "description": "",
   "private": true,
   "scripts": {
     "test": "jest",
-    "deploy": "gh-pages -d build",
-    "build": "npx webpack"
+    "build": "npx webpack",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
